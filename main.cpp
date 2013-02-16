@@ -48,28 +48,28 @@ int main() {
 	t.push_back(0.4825);
 
 	neuron n1(2);
-	n1.showData();
+	//n1.showData();
 
 	n1.setActivationFunc(SIGM,1.0);
 
 	n1.setExamples(5, e, t);
 	n1.showExamples();
 
-	//int nIt;
+	int nIt;
 
-	//cout<<"Number of iterations: ";
-	//cin>>nIt;
-	//n1.randomWeights();
-	//n1.trainNeuron(nIt);
+	cout<<"Number of iterations: ";
+	cin>>nIt;
+	n1.randomWeights();
+	n1.trainNeuron(nIt);
 
-	n1.setWeights(b);
-	n1.setInputs(a);
+	//n1.setWeights(b);
+	//n1.setInputs(a);
 	//n1.setBias(0.2);
 	n1.showData();
 
 	n1.clearInputs();
 	n1.setInput(0.1);
-	n1.setInput(0.2);
+	n1.setInput(1.0);
 
 	n1.compute();
 	n1.showData();
