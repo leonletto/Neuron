@@ -1,3 +1,10 @@
+/*
+Clase neurona
+Héctor Daniel Rodríguez Gutiérrez
+hedarogu@gmail.com
+Universidad de Guanajuato
+*/
+
 #include <vector>
 
 #define STEP 1
