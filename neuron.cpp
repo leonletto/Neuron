@@ -148,11 +148,11 @@ void neuron::setExamples(int n, vector<vector<double> > ex, vector<double> targ)
 	//targets.clear();
 	
 	examples.reserve(n);
-	for (unsigned int i = 0; i < nExamples; ++i)
-	{
+	//for (unsigned int i = 0; i < nExamples; ++i)
+	//{
 		//examples.push_back(ex.at(i));
 		examples.assign(ex.begin(),ex.end());
-	}
+	//}
 
 	targets.reserve(n);
 	targets.assign(targ.begin(),targ.end());

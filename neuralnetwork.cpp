@@ -1,96 +1,88 @@
+#include <iostream>
 #include "neuralnetwork.h"
 
-NeuralNetwork() {
-	nInputs = 0, nInputL = 0, nHiddenL = 0, nOutputL = 0;
-	bias = 0;
-	xw = 0;
-	output = 0;
-	AF = 0;
-	treshold = 0;
+NeuralNetwork::NeuralNetwork() {
+	neuron nIn(IN);
+	nIn.setActivationFunc(AF,TH);
+	neuron nHid(IL);
+	nHid.setActivationFunc(AF,TH);
+	neuron nOut(HL);
+	nOut.setActivationFunc(AF,TH);
+
 	nExamples = 0;
+	inputLayer.assign(IL, nIn);
+	hiddenLayer.assign(HL, nHid);
+	outputLayer.assign(OL, nOut);
+	inputs.assign(IN,0.0);
+	//ILOutputs.assign(IL,0.0);
+	//HLOutputs.assign(HL,0.0);
+	//OLOutputs.assign(OL,0.0);
 }
 
-NeuralNetwork(int nIn, int nIL , int inHL, int nOL) {
-	nInputs = nIn, nInputL = nIL, nHiddenL = nHL, nOutputL = nOL;
-	bias = 0;
-	xw = 0;
-	output = 0;
-	AF = 0;
-	treshold = 0;
-	nExamples = 0;
-	inputs.resize(nIn);
-	inputLayer.resize(nIL);
-	for (unsigned int i = 0; i < nInputL; ++i)
-	{
-		inputLayer.at(i).setSize(nInputs);
-	}
-	hiddenLayer.resize(nHL);
-	for (unsigned int i = 0; i < nHiddenL; ++i)
-	{
-		inputLayer.at(i).setSize(nInputL);
-	}
-	outputLayer.resize(nOL);
-	for (unsigned int i = 0; i < nOutputL; ++i)
-	{
-		inputLayer.at(i).setSize(nHiddenL);
-	}
-	ILOutpus.resize();
-	HLOutpus.resize();
-	OLOutpus.resize();
-}
-
-~NeuralNetwork() {
+NeuralNetwork::~NeuralNetwork() {
 
 }
 
-void setNetworkSetSize(int nIn, int nIL , int inHL, int nOL) {
-	inputs.resize(nIn);
-	inputLayer.resize(nIL);
-	for (unsigned int i = 0; i < nInputL; ++i)
-	{
-		inputLayer.at(i).setSize(nInputs);
-	}
-	hiddenLayer.resize(nHL);
-	for (unsigned int i = 0; i < nHiddenL; ++i)
-	{
-		inputLayer.at(i).setSize(nInputL);
-	}
-	outputLayer.resize(nOL);
-	for (unsigned int i = 0; i < nOutputL; ++i)
-	{
-		inputLayer.at(i).setSize(nHiddenL);
-	}
-}
-
-void setInputs(vector<double> in) {
-	if(nInputs == 0 || in.size() != nInputs)
+void NeuralNetwork::setInputs(vector<double> in) {
+	if(in.size() != IN)
 		return;
 
-	inputs.clear();
 	inputs.assign(in.begin(),in.end());
 }
 
-void setActivationFunc(int af, double th) {
-	for (unsigned int i = 0; i < nInputL; ++i)
-	{
-		inputLayer.at(i).setActivationFunc(af,th);
-	}
-	hiddenLayer.resize(nHL);
-	for (unsigned int i = 0; i < nHiddenL; ++i)
-	{
-		inputLayer.at(i).setActivationFunc(af,th);
-	}
-	outputLayer.resize(nOL);
-	for (unsigned int i = 0; i < nOutputL; ++i)
-	{
-		inputLayer.at(i).setActivationFunc(af,th);
-	}
+void NeuralNetwork::setInput(double in) {
+	if(inputs.size() >= IN)
+		return;
+	inputs.push_back(in);
 }
 
-void showData();
+void NeuralNetwork::clearInputs() {
+	inputs.clear();
+}
 
-void setExamples(int n, vector<vector<double> > ex, vector<double> targ);
+void NeuralNetwork::showData() {
+	cout<<"Input Layer:"<<endl;
+	for (unsigned int i = 0; i < inputLayer.size(); ++i)
+	{
+		inputLayer.at(i).showData();
+	}
+	cout<<endl;
+	cout<<"Hidden Layer:"<<endl;
+	for (unsigned int i = 0; i < hiddenLayer.size(); ++i)
+	{
+		hiddenLayer.at(i).showData();
+	}
+	cout<<endl;
+	cout<<"Output Layer:"<<endl;
+	for (unsigned int i = 0; i < outputLayer.size(); ++i)
+	{
+		outputLayer.at(i).showData();
+	}
+	cout<<endl;
+	cout<<"Inputs:"<<endl;
+	for (unsigned int i = 0; i < inputs.size(); ++i)
+	{
+		cout<<" "<<inputs.at(i);
+	}
+	cout<<endl;
+}
 
-void trainNetwork(int nIt);
+void NeuralNetwork::setExamples(int n, vector<vector<double> > ex, vector<double> targ) {
+	nExamples = n;
+	if(nExamples == 0 || ex.size() != nExamples || targ.size() != nExamples)
+		return;
+	
+	examples.reserve(n);
+	examples.assign(ex.begin(),ex.end());
 
-double computeNetwork();
+	targets.reserve(n);
+	targets.assign(targ.begin(),targ.end());
+}
+
+void NeuralNetwork::trainNetwork(int nIt) {
+
+}
+
+double NeuralNetwork::computeNetwork() {
+
+}

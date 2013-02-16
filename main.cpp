@@ -1,10 +1,11 @@
 #include <iostream>
-#include "neuron.h"
+//#include "neuron.h"
+#include "neuralnetwork.h"
 
 using namespace std;
 
 int main() {
-	vector<double> a,b,t;
+	/*vector<double> a,b,t;
 	//Inputs
 	a.push_back(0.1);
 	a.push_back(1.0);
@@ -72,7 +73,10 @@ int main() {
 	n1.setInput(1.0);
 
 	n1.compute();
-	n1.showData();
+	n1.showData();*/
+
+	NeuralNetwork nn1;
+	nn1.showData();
 
 	return 0;
 }
