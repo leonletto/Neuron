@@ -22,8 +22,10 @@ neuron::neuron(int n) {
 	AF = 0;
 	threshold = 0;
 	nExamples = 0;
-	inputs.reserve(n);
-	weights.reserve(n);
+	//inputs.reserve(n);
+	inputs.assign(n,0.0);
+	//weights.reserve(n);
+	weights.assign(n,0.0);
 }
 
 neuron::neuron(int n, vector<double> w, double b) {
@@ -34,8 +36,9 @@ neuron::neuron(int n, vector<double> w, double b) {
 	AF = 0;
 	threshold = 0;
 	nExamples = 0;
-	inputs.reserve(n);
-	weights.reserve(n);
+	//inputs.reserve(n);
+	inputs.assign(n,0.0);
+	//weights.reserve(n);
 	weights.assign(w.begin(),w.end());
 }
 
@@ -45,29 +48,29 @@ neuron::~neuron() {
 
 void neuron::setSize(int n) {
 	nInputs = n;
-	weights.clear();
-	weights.reserve(n);
-	inputs.clear();
-	inputs.reserve(n);
+	//weights.reserve(n);
+	weights.assign(n,0.0);
+	//inputs.reserve(n);
+	inputs.assign(n,0.0);
 }
 
 void neuron::setWeights(vector<double> w) {
 	if(nInputs == 0 || w.size() != nInputs)
 		return;
 	
-	weights.clear();
-	weights.assign(w.begin(),w.end());		
+	weights.assign(w.begin(),w.end());
 }
 
 void neuron::setInputs(vector<double> in) {
 	if(nInputs == 0 || in.size() != nInputs)
 		return;
 
-	inputs.clear();
 	inputs.assign(in.begin(),in.end());	
 }
 
 void neuron::setInput(double in) {
+	if(inputs.size() >= nInputs)
+		return;
 	inputs.push_back(in);
 }
 
@@ -141,13 +144,14 @@ void neuron::setExamples(int n, vector<vector<double> > ex, vector<double> targ)
 	if(nExamples == 0 || ex.size() != nExamples || targ.size() != nExamples)
 		return;
 
-	examples.clear();
-	targets.clear();
+	//examples.clear();
+	//targets.clear();
 	
 	examples.reserve(n);
 	for (unsigned int i = 0; i < nExamples; ++i)
 	{
-		examples.push_back(ex.at(i));
+		//examples.push_back(ex.at(i));
+		examples.assign(ex.begin(),ex.end());
 	}
 
 	targets.reserve(n);
